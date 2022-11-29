@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace base58
+namespace Base58
 {
     class Base58
     {
@@ -20,55 +20,8 @@ namespace base58
                 _indexes[_alphabet[i]] = i;
             }
         }
-        static void Main(string[] args)
-        {
-            if (0 == args.Length)
-            {
-                PrintHelpInformation();
-                return;
-            }
-            if (1 == args.Length)
-            {
-                Console.WriteLine("Invalid parameters input. Please view help information.");
-                PrintHelpInformation();
-                return;
-            }
-            if (2 == args.Length)
-            {
-                if ("-d" == args[0].ToLower() || "--decode" == args[0].ToLower())
-                {
-                    byte[] result = Decode(args[1]);
-                    string hex = BitConverter.ToString(result);
-                    if (!String.IsNullOrEmpty(hex))
-                    {
-                        Console.WriteLine("Decoded result:");
-                        Console.WriteLine(hex);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid crypto address.");
-                    }
-                }
-                else if ("-e" == args[0].ToLower() || "--encode" == args[0].ToLower())
-                {
-                    // byte[] data = BitConverter.GetBytes(args[1].Trim().Replace("-", ""));
-                    string[] temp = args[1].Split("-");
-                    List<byte> data = new List<byte>();
-                    foreach (string s in temp)
-                    {
-                        data.Add(Convert.ToByte(Convert.ToInt32(s, 16)));
-                    }
-                    Console.WriteLine(Encode(data.ToArray()));
-                }
-                else
-                {
-                    Console.WriteLine("Invalid parameter");
-                    PrintHelpInformation();
-                }
-            }
-        }
 
-        static string Encode(byte[] input)
+        public static string Encode(byte[] input)
         {
             if (0 == input.Length)
             {
@@ -118,7 +71,7 @@ namespace base58
                 return String.Empty;
             }
         }
-        static byte[] Decode(string input)
+        public static byte[] Decode(string input)
         {
             if (0 == input.Length)
             {
