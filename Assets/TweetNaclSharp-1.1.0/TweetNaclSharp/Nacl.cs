@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using TweetNaclSharp.Core;
 using TweetNaclSharp.Core.Extensions;

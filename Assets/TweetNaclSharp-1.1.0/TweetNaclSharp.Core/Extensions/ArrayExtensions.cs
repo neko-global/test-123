@@ -1,4 +1,6 @@
-﻿namespace TweetNaclSharp.Core.Extensions
+﻿using System;
+
+namespace TweetNaclSharp.Core.Extensions
 {
     public static class ArrayExtensions
     {

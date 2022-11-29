@@ -1,4 +1,6 @@
-﻿namespace TweetNaclSharp.Core
+﻿using System;
+
+namespace TweetNaclSharp.Core
 {
     public class NaclException : Exception
     {
