@@ -25,7 +25,7 @@ public class Test : MonoBehaviour
 
     public void decryptData(string data, string nonce, byte[] sharedKey){
         LogByte("nonce",Base58.Base58.Decode(nonce));
-        byte[] decryptedData  = TweetNaclSharp.Nacl.BoxAfter(Base58.Base58.Decode(data), Base58.Base58.Decode(nonce), sharedKey);
+        byte[] decryptedData  = TweetNaclSharp.Nacl.BoxOpenAfter(Base58.Base58.Decode(data), Base58.Base58.Decode(nonce), sharedKey);
          LogByte("decryptedData" ,decryptedData);
          Debug.Log(Base58.Base58.Encode(decryptedData));
          string result = System.Text.Encoding.UTF8.GetString(decryptedData);
