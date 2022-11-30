@@ -6,6 +6,12 @@ using System;
 using TweetNaclSharp;
 using TweetNaclSharp.Core;
 
+public class PhantomConnectResponseData
+    {
+        public string public_key;
+        public string session;
+    }
+
 public class Test : MonoBehaviour
 {
     KeyPair dAppKeypair;
@@ -23,13 +29,14 @@ public class Test : MonoBehaviour
         Debug.Log("secretKey "+ Base58.Base58.Encode(dAppKeypair.SecretKey));
     }
 
-    public void decryptData(string data, string nonce, byte[] sharedKey){
+    public string decryptData(string data, string nonce, byte[] sharedKey){
         LogByte("nonce",Base58.Base58.Decode(nonce));
         byte[] decryptedData  = TweetNaclSharp.Nacl.BoxOpenAfter(Base58.Base58.Decode(data), Base58.Base58.Decode(nonce), sharedKey);
          LogByte("decryptedData" ,decryptedData);
          Debug.Log(Base58.Base58.Encode(decryptedData));
          string result = System.Text.Encoding.UTF8.GetString(decryptedData);
-         Debug.Log(result);
+         return result;
+        //  Debug.Log(result);
     }
 
     public void connect(){
@@ -52,7 +59,10 @@ public class Test : MonoBehaviour
         byte[] phantomEncryptionPublicKeyByte = Base58.Base58.Decode(phantomEncryptionPublicKey);
         sharedKey = TweetNaclSharp.Nacl.BoxBefore(phantomEncryptionPublicKeyByte, dAppKeypair.SecretKey);
         LogByte("sharedKey" ,sharedKey);
-        decryptData(data, nonce, sharedKey);
+        string dataResponse = decryptData(data, nonce, sharedKey);
+        PhantomConnectResponseData connectData = JsonUtility.FromJson<PhantomConnectResponseData>(dataResponse);
+        Debug.Log(connectData.public_key);
+        Debug.Log(connectData.session); //save this
     }
 
 
